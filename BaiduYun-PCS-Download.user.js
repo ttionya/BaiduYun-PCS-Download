@@ -11,7 +11,7 @@
 // @downloadURL https://raw.githubusercontent.com/ttionya/BaiduYun-PCS-Download/master/BaiduYun-PCS-Download.user.js
 // @run-at      document-end
 // @grant       none
-// @version     2.0.0
+// @version     1.2.1
 // ==/UserScript==
 
 
