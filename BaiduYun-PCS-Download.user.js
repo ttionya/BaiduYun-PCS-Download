@@ -11,7 +11,7 @@
 // @downloadURL https://raw.githubusercontent.com/ttionya/BaiduYun-PCS-Download/master/BaiduYun-PCS-Download.user.js
 // @run-at      document-end
 // @grant       none
-// @version     1.2.1
+// @version     1.2.2
 // ==/UserScript==
 
 
@@ -112,7 +112,7 @@
 
     // 检查是否在“全部文件”中，控制是否显示
     function checkUri(url) {
-        if (url.indexOf('home#') === -1 || url.indexOf('search/key=') !== -1) {
+        if (url.indexOf('/home') === -1 || url.indexOf('search/key=') !== -1) {
 
             // 不是“全部文件”页面
             // 是搜索页面
