@@ -11,7 +11,7 @@
 // @downloadURL https://raw.githubusercontent.com/ttionya/BaiduYun-PCS-Download/master/BaiduYun-PCS-Download.user.js
 // @run-at      document-end
 // @grant       none
-// @version     1.2.2
+// @version     1.3.0
 // ==/UserScript==
 
 
@@ -21,14 +21,13 @@
     var d = document,
         toolsLastButton = d.querySelector('.tools > span:last-child'),
         dlLink = 'http://pcs.baidu.com/rest/2.0/pcs/file?method=download&app_id=266719&path=',
-        dlButton;
+        dlButton, iframeDiv;
 
 
-    // 添加伪元素
+    // 添加伪元素、按钮、容器和监听
     addStyle();
-
-    // 添加按钮和监听
     dlButton = addButton();
+    iframeDiv = addDiv();
     dlButton.addEventListener('click', getdlUri);
 
 
@@ -71,20 +70,14 @@
             alert('不能下载文件夹哦~');
         }
         else {
-            var a = d.createElement('a');
-
-            a.setAttribute('download', '');
-            a.style.display = 'none';
-            d.body.appendChild(a);
-
             for (; activeItemsLen--;) {
                 filename = activeItems[activeItemsLen].querySelector(".file-name .filename").innerText;
 
-                a.href = dlLink + encodeURIComponent(path + '/' + filename);
-                a.click();
+                var iframe = d.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = dlLink + encodeURIComponent(path + '/' + filename);
+                iframeDiv.appendChild(iframe);
             }
-
-            d.body.removeChild(a);
         }
     }
 
@@ -100,6 +93,16 @@
         toolsLastButton.parentNode.insertBefore(a, toolsLastButton);
 
         return d.getElementById('PCS-dl');
+    }
+
+    // 添加容器
+    function addDiv() {
+        var div = d.createElement('div');
+
+        div.id = 'PCS-iframe';
+        d.body.appendChild(div);
+
+        return d.getElementById('PCS-iframe');
     }
 
     // 添加相关样式
